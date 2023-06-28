@@ -60,7 +60,7 @@ using (var context =  new PruebaContext())
     var p5 = ListaBase.SelectMany(venta => venta.VentaDetalles, (venta, detalle) => new
                                             {
                                                 NomMarca = detalle.IdProductoNavigation.IdMarcaNavigation.Nombre,
-                                                MontoVenta = detalle.TotalLinea
+                                                MontoVenta = (detalle.PrecioUnitario - detalle.IdProductoNavigation.CostoUnitario)*detalle.Cantidad
                                             })
                       .GroupBy(detalle => detalle.NomMarca)
                       .Select(grupo => new
